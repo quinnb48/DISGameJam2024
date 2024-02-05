@@ -5,8 +5,10 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
-    public float offsetX;
-    public float offsetY;
+    public float minX = 0;
+    public float maxX = 40;
+    public float minY = 0;
+    public float maxY = 10;
     public Vector2 inputDirection;
     public float rotationSpeed = 5f;
 
@@ -22,17 +24,26 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = transform.position;
-        pos.x = player.position.x + offsetX;
-        pos.y = player.position.y + offsetY;
-        transform.position = pos;
-    }
+        float x = transform.position.x;
+        float y = transform.position.y;
 
-    private void FixedUpdate()
-    {
+        if (player.position.x > minX && player.position.x < maxX)
+        {
+            x = player.position.x;
+        }
+        if (player.position.y > minY && player.position.y < maxY)
+        {
+            y = player.position.y;
+        }
+        transform.position = new Vector3 (x, y, -10);
+
         inputDirection.x = Input.GetAxis("Horizontal");
         targetRotation = Quaternion.Euler(0, 0, inputDirection.x * rotationSpeed) * initialRotation;
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
     }
 }
