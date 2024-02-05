@@ -11,8 +11,8 @@ public class ButtonController : MonoBehaviour
     public float jumpForce = 0.3f;
     public Vector2 inputDirection;
 
-    public float currVel;
-    public bool touchingGum;
+    private float currVel;
+    private bool touchingGum;
     
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,6 @@ public class ButtonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currVel);
         if (Input.GetKeyDown(KeyCode.R)) {
             Reset();
         }
