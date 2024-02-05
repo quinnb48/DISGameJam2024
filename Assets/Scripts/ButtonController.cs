@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
+    public float velocity = 3;
+    public Vector2 inputDirection;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +16,12 @@ public class ButtonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        inputDirection.x = Input.GetAxis("Horizontal");
         
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position = (inputDirection * velocity).normalized;
     }
 }
