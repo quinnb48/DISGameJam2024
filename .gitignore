@@ -1,0 +1,7 @@
+Library/*
+Logs/*
+Temp/*
+UserSettings/*
+.vsconfig
+Assembly-CSharp.csproj
+DISGameJam2024.sln
