@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
             targetPosition.x = maxX;
         }
 
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, distance * damping);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, damping / distance);
 
         inputDirection.x = Input.GetAxis("Horizontal");
         targetRotation = Quaternion.Euler(0, 0, inputDirection.x * rotationSpeed) * initialRotation;

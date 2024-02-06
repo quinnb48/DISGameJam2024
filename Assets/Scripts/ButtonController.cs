@@ -10,7 +10,9 @@ public class ButtonController : MonoBehaviour
     public float velocity = 12f;
     public float jumpForce = 0.3f;
     public Vector2 inputDirection;
+    public float jumpDelay = 0.1f;
 
+    private float jumpTimer;
     private float currVel;
     private bool touchingGum;
     private bool endGame; //this shuts down player movement/control/input for end game sequence
@@ -57,22 +59,33 @@ public class ButtonController : MonoBehaviour
             rb.AddForce(new Vector2(movementDirection, 0f) * currVel * Time.deltaTime);
 
             // Make it jump!
+            jumpTimer -= Time.deltaTime;
             if (Input.GetButton("Jump") && CanJump())
+            {
+                Debug.Log("hi");
                 rb.velocity += new Vector2(0f, jumpForce);
+                jumpTimer = jumpDelay;
                 //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            }
         }
     }
 
     private bool CanJump()
     {
-        if (touchingGum)
+        if (touchingGum && jumpTimer <= 0)
         {
             return false;
         }
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.3f);
 
-        if (hit.collider != null)
-            {return (hit.collider.CompareTag("Platform"));}
+        for (float i = -0.15f; i <= 0.15f; i += 0.05f)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + i, transform.position.y), Vector2.down, 0.3f);
+
+            if (hit.collider != null)
+            {
+                return (hit.collider.CompareTag("Platform"));
+            }
+        }
         return false;
     }
 

@@ -711,7 +711,7 @@ PrefabInstance:
       objectReference: {fileID: 39655293}
     - target: {fileID: 6757643019068937758, guid: df1338fd1294749a58f94aa29fa343d6, type: 3}
       propertyPath: damping
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6757643019068937758, guid: df1338fd1294749a58f94aa29fa343d6, type: 3}
       propertyPath: offsetX
@@ -800,7 +800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1529851460818254157, guid: 6997cad791e09a54daa416d396776ed1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.5167704
+      value: -4.36
       objectReference: {fileID: 0}
     - target: {fileID: 1529851460818254157, guid: 6997cad791e09a54daa416d396776ed1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1150,6 +1150,10 @@ PrefabInstance:
     - target: {fileID: 1741191576731768694, guid: be6bdd7aef94a4adf91728f923a5e7e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9194311263276497812, guid: be6bdd7aef94a4adf91728f923a5e7e0, type: 3}
+      propertyPath: jumpDelay
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
