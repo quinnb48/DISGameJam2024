@@ -13,63 +13,66 @@ public class ButtonController : MonoBehaviour
 
     private float currVel;
     private bool touchingGum;
-    private float jumpTimer = 0.25f;
-    
+    private bool endGame; //this shuts down player movement/control/input for end game sequence
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        endGame = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.R)) {
             Reset();
         }
 
-        if (touchingGum)
-        {
-            currVel = velocity / 4;
+        if(endGame == false){
+            if (touchingGum)
+            {
+                currVel = velocity / 4;
+            }
+            else
+            {
+                currVel = velocity;
+            }
         }
-        else
-        {
-            currVel = velocity;
+        else{
+            currVel = 0;
+            jumpForce = 0;
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+            transform.rotation = Quaternion.identity;
         }
-
-        jumpTimer -= Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        // Make it move!
-        float movementDirection = Input.GetAxis("Horizontal");
-        rb.AddForce(new Vector2(movementDirection, 0f) * currVel * Time.deltaTime);
+        if(endGame == false){
+            // Make it move!
+            float movementDirection = Input.GetAxis("Horizontal");
+            rb.AddForce(new Vector2(movementDirection, 0f) * currVel * Time.deltaTime);
 
-        // Make it jump!
-        if (Input.GetButton("Jump") && CanJump())
-        {
-            jumpTimer = 0.1f;
-            rb.velocity += new Vector2(0f, jumpForce);
-            //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            // Make it jump!
+            if (Input.GetButton("Jump") && CanJump())
+                rb.velocity += new Vector2(0f, jumpForce);
+                //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
-        
     }
 
     private bool CanJump()
     {
-        if (touchingGum || jumpTimer > 0)
+        if (touchingGum)
         {
             return false;
         }
-        for (float i = -0.15f; i < .15; i += 0.05f)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + i, transform.position.y), Vector2.down, 0.3f);
-            if (hit.collider != null)
-            { 
-                return hit.collider.CompareTag("Platform"); 
-            }
-        }
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.3f);
+
+        if (hit.collider != null)
+            {return (hit.collider.CompareTag("Platform"));}
         return false;
     }
 
@@ -77,11 +80,16 @@ public class ButtonController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Gum"))
         {
             rb.velocity = Vector2.zero;
+        }
+
+        if(collision.gameObject.CompareTag("GoalZone")){
+            endGame = true;
         }
     }
 
