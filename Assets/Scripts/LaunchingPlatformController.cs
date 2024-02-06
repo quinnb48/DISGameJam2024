@@ -10,17 +10,21 @@ public class LaunchingPlatformController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 startPosition;
     private bool peak;
+    private AudioSource aud;
 
     private void Start()
     {
         peak = false;
         startPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
+        aud = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
     {
-        if (transform.position.y > startPosition.y + heightReach && !peak) { // Move Up
+        if (transform.position.y > startPosition.y + heightReach && !peak)
+        { // Move Up
+            aud.Play();
             peak = true;
             rb.velocity = Vector3.down;
         }
