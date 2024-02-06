@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\ButtonController.cs" />
     <Compile Include="Assets\Scripts\GoalZoneScript.cs" />
     <Compile Include="Assets\Scripts\LaunchingPlatformController.cs" />
+    <Compile Include="Assets\Scripts\SpiderWeb.cs" />
     <Compile Include="Assets\Scripts\AntController.cs" />
     <Compile Include="Assets\Scripts\BirdScript.cs" />
     <Compile Include="Assets\Branch.cs" />
