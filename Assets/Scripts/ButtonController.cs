@@ -10,7 +10,7 @@ public class ButtonController : MonoBehaviour
     public float velocity = 12f;
     public float jumpForce = 0.3f;
     public Vector2 inputDirection;
-    public float jumpDelay = 0.1f;
+    public float jumpDelay = 0.5f;
 
     private float jumpTimer;
     private float currVel;
@@ -62,7 +62,6 @@ public class ButtonController : MonoBehaviour
             jumpTimer -= Time.deltaTime;
             if (Input.GetButton("Jump") && CanJump())
             {
-                Debug.Log("hi");
                 rb.velocity += new Vector2(0f, jumpForce);
                 jumpTimer = jumpDelay;
                 //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
@@ -72,7 +71,7 @@ public class ButtonController : MonoBehaviour
 
     private bool CanJump()
     {
-        if (touchingGum && jumpTimer <= 0)
+        if (touchingGum || jumpTimer > 0)
         {
             return false;
         }
@@ -83,7 +82,9 @@ public class ButtonController : MonoBehaviour
 
             if (hit.collider != null)
             {
-                return (hit.collider.CompareTag("Platform"));
+                if (hit.collider.CompareTag("Platform")) {
+                    return true;
+                }
             }
         }
         return false;
