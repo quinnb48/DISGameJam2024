@@ -5,13 +5,14 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
-    public float minX = 0;
-    public float maxX = 40;
-    public float minY = 0;
-    public float maxY = 10;
+    public float minX;
+    public float maxX;
     public Vector2 inputDirection;
     public float rotationSpeed = 5f;
+    public Vector3 offset;
+    public float damping;
 
+    private Vector3 velocity;
     private Quaternion targetRotation;
     private Quaternion initialRotation;
 
@@ -21,29 +22,23 @@ public class CameraController : MonoBehaviour
         targetRotation = initialRotation = transform.rotation;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        float x = transform.position.x;
-        float y = transform.position.y;
+        Vector3 targetPosition = player.position + offset;
 
-        if (player.position.x > minX && player.position.x < maxX)
-        {
-            x = player.position.x;
+        if (targetPosition.x < minX){
+            targetPosition.x = minX;
         }
-        if (player.position.y > minY && player.position.y < maxY)
-        {
-            y = player.position.y;
+        else if(targetPosition.x > maxX){
+            targetPosition.x = maxX;
         }
-        transform.position = new Vector3 (x, y, -10);
+
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, damping);
 
         inputDirection.x = Input.GetAxis("Horizontal");
         targetRotation = Quaternion.Euler(0, 0, inputDirection.x * rotationSpeed) * initialRotation;
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    }
 
-    private void FixedUpdate()
-    {
     }
 }
