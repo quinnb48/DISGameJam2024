@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     public Vector3 offset;
     public float damping;
 
+    private float distance;
     private Vector3 velocity;
     private Quaternion targetRotation;
     private Quaternion initialRotation;
@@ -25,6 +26,7 @@ public class CameraController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 targetPosition = player.position + offset;
+        distance = Vector3.Distance(targetPosition, transform.position);
 
         if (targetPosition.x < minX){
             targetPosition.x = minX;
@@ -33,7 +35,7 @@ public class CameraController : MonoBehaviour
             targetPosition.x = maxX;
         }
 
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, damping);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, distance * damping);
 
         inputDirection.x = Input.GetAxis("Horizontal");
         targetRotation = Quaternion.Euler(0, 0, inputDirection.x * rotationSpeed) * initialRotation;
