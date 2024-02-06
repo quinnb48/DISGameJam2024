@@ -7,11 +7,6 @@ public class AntSpawner : MonoBehaviour
     public float spawnRate = 3f;
     float timer;
     public GameObject spawnedObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()

@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\LaunchingPlatformController.cs" />
     <Compile Include="Assets\Scripts\AntController.cs" />
     <Compile Include="Assets\Scripts\BirdScript.cs" />
+    <Compile Include="Assets\Branch.cs" />
     <Compile Include="Assets\Scripts\AntMouth.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Leaves.cs" />
