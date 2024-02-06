@@ -1038,6 +1038,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button
       objectReference: {fileID: 0}
+    - target: {fileID: 1741191576731768690, guid: be6bdd7aef94a4adf91728f923a5e7e0, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1741191576731768694, guid: be6bdd7aef94a4adf91728f923a5e7e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.736
