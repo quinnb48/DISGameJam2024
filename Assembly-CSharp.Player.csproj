@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\BirdScript.cs" />
     <Compile Include="Assets\Scripts\AntMouth.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Leaves.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
